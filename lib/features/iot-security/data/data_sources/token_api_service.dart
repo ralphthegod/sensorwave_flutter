@@ -1,7 +1,6 @@
 import 'package:retrofit/retrofit.dart';
 import 'package:sensorwave/core/resources/constants/constants.dart';
 import 'package:sensorwave/features/iot-security/data/models/client_access_token/client_access_token.dart';
-import 'package:sensorwave/features/iot-security/data/models/user/user.dart';
 import 'package:dio/dio.dart';
 
 part 'token_api_service.g.dart';
