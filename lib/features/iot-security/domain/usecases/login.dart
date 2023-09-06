@@ -1,7 +1,7 @@
 import 'package:sensorwave/core/resources/data_state.dart';
 import 'package:sensorwave/core/usecase/usecase.dart';
-import 'package:sensorwave/features/auth/data/models/client_access_token/client_access_token.dart';
-import 'package:sensorwave/features/auth/domain/repository/auth_repository.dart';
+import 'package:sensorwave/features/iot-security/data/models/client_access_token/client_access_token.dart';
+import 'package:sensorwave/features/iot-security/domain/repository/auth_repository.dart';
 
 class LoginUseCase extends UseCase<DataState<ClientAccessToken>, Map<String,String>>{
   final AuthRepository _authRepository;
