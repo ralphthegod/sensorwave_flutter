@@ -1,6 +1,6 @@
 import 'package:sensorwave/core/resources/data_state.dart';
 import 'package:sensorwave/core/usecase/usecase.dart';
-import 'package:sensorwave/features/iot-security/data/models/user/user.dart';
+import 'package:sensorwave/features/iot-security/domain/models/user/user.dart';
 import 'package:sensorwave/features/iot-security/domain/repository/auth_repository.dart';
 
 class RegisterUseCase extends UseCase<DataState<User>, Map<String,String>>{

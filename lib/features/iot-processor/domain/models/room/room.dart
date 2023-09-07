@@ -2,7 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 // ignore: unused_import
 import 'package:json_annotation/json_annotation.dart';
 import 'package:flutter/foundation.dart';
-import 'package:sensorwave/features/iot-processor/data/models/room_smart_object/room_smart_object.dart';
+import 'package:sensorwave/features/iot-processor/domain/models/room_smart_object/room_smart_object.dart';
 
 part 'room.freezed.dart';
 part 'room.g.dart';

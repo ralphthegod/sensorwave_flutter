@@ -4,10 +4,10 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:sensorwave/core/resources/constants/constants.dart';
 import 'package:sensorwave/core/resources/data_state.dart';
-import 'package:sensorwave/features/iot-security/data/data_sources/auth_api_service.dart';
+import 'package:sensorwave/features/iot-security/data/data_sources/register_api_service.dart';
 import 'package:sensorwave/features/iot-security/data/data_sources/token_api_service.dart';
-import 'package:sensorwave/features/iot-security/data/models/client_access_token/client_access_token.dart';
-import 'package:sensorwave/features/iot-security/data/models/user/user.dart';
+import 'package:sensorwave/features/iot-security/domain/models/client_access_token/client_access_token.dart';
+import 'package:sensorwave/features/iot-security/domain/models/user/user.dart';
 import 'package:sensorwave/features/iot-security/domain/repository/auth_repository.dart';
 
 class AuthRepositoryImpl extends AuthRepository {

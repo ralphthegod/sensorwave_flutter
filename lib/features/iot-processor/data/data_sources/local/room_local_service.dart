@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:sensorwave/features/iot-processor/data/models/room/room.dart';
+import 'package:sensorwave/features/iot-processor/domain/models/room/room.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RoomLocalService{

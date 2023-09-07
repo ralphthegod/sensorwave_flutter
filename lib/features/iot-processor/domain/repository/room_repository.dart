@@ -1,6 +1,6 @@
 
 import 'package:sensorwave/core/resources/data_state.dart';
-import 'package:sensorwave/features/iot-processor/data/models/room/room.dart';
+import 'package:sensorwave/features/iot-processor/domain/models/room/room.dart';
 
 abstract class RoomRepository{
 

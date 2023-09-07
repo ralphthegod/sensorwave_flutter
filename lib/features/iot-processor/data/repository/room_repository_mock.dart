@@ -2,7 +2,7 @@
 
 import 'package:sensorwave/core/resources/data_state.dart';
 import 'package:sensorwave/features/iot-processor/data/data_sources/local/room_local_service.dart';
-import 'package:sensorwave/features/iot-processor/data/models/room/room.dart';
+import 'package:sensorwave/features/iot-processor/domain/models/room/room.dart';
 import 'package:sensorwave/features/iot-processor/domain/repository/room_repository.dart';
 
 class RoomRepositoryMock extends RoomRepository{

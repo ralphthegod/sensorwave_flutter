@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:sensorwave/core/resources/constants/constants.dart';
 import 'package:dio/dio.dart' as dio;
-import 'package:sensorwave/features/iot-processor/data/models/room/room.dart';
+import 'package:sensorwave/features/iot-processor/domain/models/room/room.dart';
 
 part 'room_api_service.g.dart';
 
