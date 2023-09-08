@@ -5,9 +5,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class RoomLocalService{
 
-  SharedPreferences sharedPreferences;
+  late SharedPreferences sharedPreferences;
 
-  RoomLocalService({required this.sharedPreferences});
+  RoomLocalService(){
+    SharedPreferences.getInstance().then((value) => sharedPreferences = value);
+  }
 
   Future<List<Room>> getRoomsByOwnerUsername(String username) async {
     String ? roomsJson = sharedPreferences.getString(username);
