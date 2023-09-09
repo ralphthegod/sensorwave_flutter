@@ -20,7 +20,8 @@ User _$UserFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$User {
-  String get username => throw _privateConstructorUsedError;
+  String get username =>
+      throw _privateConstructorUsedError; // ignore: invalid_annotation_target
   String get password => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -102,13 +103,16 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
 /// @nodoc
 @JsonSerializable()
 class _$_User with DiagnosticableTreeMixin implements _User {
-  const _$_User({required this.username, required this.password});
+  const _$_User({this.username = "", this.password = ""});
 
   factory _$_User.fromJson(Map<String, dynamic> json) => _$$_UserFromJson(json);
 
   @override
+  @JsonKey()
   final String username;
+// ignore: invalid_annotation_target
   @override
+  @JsonKey()
   final String password;
 
   @override
@@ -155,15 +159,13 @@ class _$_User with DiagnosticableTreeMixin implements _User {
 }
 
 abstract class _User implements User {
-  const factory _User(
-      {required final String username,
-      required final String password}) = _$_User;
+  const factory _User({final String username, final String password}) = _$_User;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
   @override
   String get username;
-  @override
+  @override // ignore: invalid_annotation_target
   String get password;
   @override
   @JsonKey(ignore: true)

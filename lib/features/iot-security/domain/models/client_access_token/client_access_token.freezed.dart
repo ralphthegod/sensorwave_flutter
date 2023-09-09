@@ -198,7 +198,7 @@ class _$_ClientAccessToken
       required this.refresh_expires_in,
       required this.refresh_token,
       required this.token_type,
-      required this.not_before_policy,
+      this.not_before_policy = 0,
       required this.session_state,
       required this.scope});
 
@@ -216,6 +216,7 @@ class _$_ClientAccessToken
   @override
   final String token_type;
   @override
+  @JsonKey()
   final int not_before_policy;
   @override
   final String session_state;
@@ -299,7 +300,7 @@ abstract class _ClientAccessToken implements ClientAccessToken {
       required final int refresh_expires_in,
       required final String refresh_token,
       required final String token_type,
-      required final int not_before_policy,
+      final int not_before_policy,
       required final String session_state,
       required final String scope}) = _$_ClientAccessToken;
 

@@ -13,7 +13,7 @@ _$_ClientAccessToken _$$_ClientAccessTokenFromJson(Map<String, dynamic> json) =>
       refresh_expires_in: json['refresh_expires_in'] as int,
       refresh_token: json['refresh_token'] as String,
       token_type: json['token_type'] as String,
-      not_before_policy: json['not_before_policy'] as int,
+      not_before_policy: json['not_before_policy'] as int? ?? 0,
       session_state: json['session_state'] as String,
       scope: json['scope'] as String,
     );

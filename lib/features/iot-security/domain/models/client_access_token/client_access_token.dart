@@ -16,7 +16,7 @@ class ClientAccessToken with _$ClientAccessToken {
     required int refresh_expires_in,
     required String refresh_token,
     required String token_type,
-    required int not_before_policy,
+    @Default(0) int not_before_policy,
     required String session_state,
     required String scope,
   }) = _ClientAccessToken;

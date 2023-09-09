@@ -8,9 +8,11 @@ part 'user.g.dart';
 
 @freezed
 class User with _$User {
+  
   const factory User({
-    required String username,
-    required String password,
+    @Default("") String username,
+    // ignore: invalid_annotation_target
+    @Default("") String password,
   }) = _User;
 
   factory User.fromJson(Map<String, Object?> json) => _$UserFromJson(json);
