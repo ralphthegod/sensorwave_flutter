@@ -15,5 +15,5 @@ class RegisterStateNotifier extends StateNotifier<Future<DataState<User>>> {
 
 final registerStateProvider = StateNotifierProvider<RegisterStateNotifier, Future<DataState<User>>>((ref) {
   // ignore: null_argument_to_non_null_type
-  return RegisterStateNotifier(Future<DataState<User>>.value(null), ref.watch(registerProvider));
+  return RegisterStateNotifier(ref.read(registerProvider).call(params: {"username":"", "password":""}), ref.watch(registerProvider));
 });

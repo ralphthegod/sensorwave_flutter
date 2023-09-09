@@ -15,5 +15,5 @@ class LoginStateNotifier extends StateNotifier<Future<DataState<ClientAccessToke
 
 final loginStateProvider = StateNotifierProvider<LoginStateNotifier, Future<DataState<ClientAccessToken>>>((ref) {
   // ignore: null_argument_to_non_null_type
-  return LoginStateNotifier(Future<DataState<ClientAccessToken>>.value(null), ref.watch(loginProvider));
+  return LoginStateNotifier(ref.read(loginProvider).call(params: {"username":"", "password":""}), ref.watch(loginProvider));
 });
