@@ -12,7 +12,9 @@ class _RoomApiService implements RoomApiService {
   _RoomApiService(
     this._dio, {
     this.baseUrl,
-  });
+  }) {
+    baseUrl ??= 'https://58fd-93-149-132-87.ngrok-free.app';
+  }
 
   final Dio _dio;
 
@@ -29,7 +31,10 @@ class _RoomApiService implements RoomApiService {
       r'name': name,
       r'roomOwnerUsername': roomOwnerUsername,
     };
-    final _headers = <String, dynamic>{r'Authorization': accessToken};
+    final _headers = <String, dynamic>{
+      r'Content-Type': 'application/json',
+      r'Authorization': accessToken,
+    };
     _headers.removeWhere((k, v) => v == null);
     final Map<String, dynamic>? _data = null;
     final _result = await _dio
@@ -37,6 +42,7 @@ class _RoomApiService implements RoomApiService {
       method: 'POST',
       headers: _headers,
       extra: _extra,
+      contentType: 'application/json',
     )
             .compose(
               _dio.options,
@@ -63,7 +69,10 @@ class _RoomApiService implements RoomApiService {
     final queryParameters = <String, dynamic>{
       r'roomOwnerUsername': roomOwnerUsername
     };
-    final _headers = <String, dynamic>{r'Authorization': accessToken};
+    final _headers = <String, dynamic>{
+      r'Content-Type': 'application/json',
+      r'Authorization': accessToken,
+    };
     _headers.removeWhere((k, v) => v == null);
     final Map<String, dynamic>? _data = null;
     final _result = await _dio
@@ -71,6 +80,7 @@ class _RoomApiService implements RoomApiService {
       method: 'GET',
       headers: _headers,
       extra: _extra,
+      contentType: 'application/json',
     )
             .compose(
               _dio.options,

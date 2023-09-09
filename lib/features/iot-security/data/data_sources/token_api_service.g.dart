@@ -14,7 +14,7 @@ class _TokenApiService implements TokenApiService {
     this.baseUrl,
   }) {
     baseUrl ??=
-        'http://{{keycloak-host}}/realms/master/protocol/openid-connect';
+        'https://58fd-93-149-132-87.ngrok-free.app/realms/app/protocol/openid-connect';
   }
 
   final Dio _dio;
@@ -30,20 +30,21 @@ class _TokenApiService implements TokenApiService {
     String clientId,
   ) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{
-      r'username': username,
-      r'password': password,
-      r'grant_type': grantType,
-      r'client_secret': clientSecret,
-      r'client_id': clientId,
-    };
+    final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    final _data = {
+      'username': username,
+      'password': password,
+      'grant_type': grantType,
+      'client_secret': clientSecret,
+      'client_id': clientId,
+    };
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<HttpResponse<ClientAccessToken>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
+      contentType: 'application/x-www-form-urlencoded',
     )
             .compose(
               _dio.options,

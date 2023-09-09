@@ -1,7 +1,7 @@
 import 'package:retrofit/retrofit.dart';
 import 'package:sensorwave/core/resources/constants/constants.dart';
 import 'package:sensorwave/features/iot-security/domain/models/client_access_token/client_access_token.dart';
-import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' hide Headers;
 
 part 'token_api_service.g.dart';
 
@@ -9,12 +9,13 @@ part 'token_api_service.g.dart';
 abstract class TokenApiService {
   factory TokenApiService(Dio dio, {String baseUrl}) = _TokenApiService;
 
+  @FormUrlEncoded()
   @POST('/token')
   Future<HttpResponse<ClientAccessToken>> getAccessToken(
-    @Query("username") String username,
-    @Query("password") String password,
-    @Query("grant_type") String grantType,
-    @Query("client_secret") String clientSecret,
-    @Query("client_id") String clientId,
+    @Field("username") String username,
+    @Field("password") String password,
+    @Field("grant_type") String grantType,
+    @Field("client_secret") String clientSecret,
+    @Field("client_id") String clientId,
   );
 }

@@ -12,7 +12,9 @@ class _AuthApiService implements AuthApiService {
   _AuthApiService(
     this._dio, {
     this.baseUrl,
-  });
+  }) {
+    baseUrl ??= 'https://58fd-93-149-132-87.ngrok-free.app';
+  }
 
   final Dio _dio;
 
@@ -24,21 +26,22 @@ class _AuthApiService implements AuthApiService {
     String password,
   ) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{
-      r'username': username,
-      r'password': password,
-    };
+    final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    final _data = {
+      'username': username,
+      'password': password,
+    };
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<HttpResponse<User>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
+      contentType: 'application/x-www-form-urlencoded',
     )
             .compose(
               _dio.options,
-              '/users/register',
+              '/api/iot-security/users/register',
               queryParameters: queryParameters,
               data: _data,
             )
