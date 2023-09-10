@@ -537,7 +537,7 @@ packages:
     source: hosted
     version: "1.0.4"
   mqtt_client:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: mqtt_client
       sha256: "873c124f6485c17b5ca085047880068f3c5acc9db54317995d752a3253f95a72"
@@ -656,6 +656,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.0"
+  protobuf:
+    dependency: "direct main"
+    description:
+      name: protobuf
+      sha256: "68645b24e0716782e58948f8467fd42a880f255096a821f9e7d0ec625b00c84d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.1.0"
   pub_semver:
     dependency: transitive
     description:
