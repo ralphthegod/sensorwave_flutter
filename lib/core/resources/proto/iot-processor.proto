@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.sensorwave.iotprocessor";
+option java_outer_classname = "Protobuf";
+
+import "google/protobuf/any.proto";
+import "google/protobuf/timestamp.proto";
+
+message SmartObjectMessage {
+  string smartObjectId = 1;
+  string roomId = 2;
+  optional google.protobuf.Timestamp timestamp = 3;
+  repeated Data data = 4;
+}
+
+enum DataType {
+  TEMPERATURE = 0;
+  POSITION = 1;
+  HUMIDITY = 2;
+  STATUS = 3;
+}
+
+message Data {
+  DataType type = 1;
+  google.protobuf.Any data = 2;
+}
+
+message Temperature {
+  double temperature = 1;
+}
+
+message Position {
+  double longitude = 1;
+  double latitude = 2;
+}
+
+message Humidity {
+  double humidity = 1;
+}
+
+message Status {
+  bool isOnline = 1;
+}
