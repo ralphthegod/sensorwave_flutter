@@ -3,6 +3,7 @@
 import 'package:sensorwave/core/resources/data_state.dart';
 import 'package:sensorwave/features/iot-processor/data/data_sources/local/room_local_service.dart';
 import 'package:sensorwave/features/iot-processor/domain/models/room/room.dart';
+import 'package:sensorwave/features/iot-processor/domain/models/room_smart_object/room_smart_object.dart';
 import 'package:sensorwave/features/iot-processor/domain/repository/room_repository.dart';
 
 class RoomRepositoryMock extends RoomRepository{
@@ -14,6 +15,12 @@ class RoomRepositoryMock extends RoomRepository{
   Future<DataState<List<Room>>> getRoomsByOwnerUsername(String accessToken, String username) async {
     List<Room> rooms = await _roomLocalService.getRoomsByOwnerUsername(username);
     return DataSuccess(rooms);
+  }
+
+  @override
+  Future<DataState<RoomSmartObject>> createSmartObject(String accessToken, String name, String roomOwnerUsername) async {
+    RoomSmartObject roomSmartObject = await _roomLocalService.createSmartObject(name, roomOwnerUsername);
+    return DataSuccess(roomSmartObject);
   }
 
   @override

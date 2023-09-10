@@ -13,7 +13,7 @@ class _RoomApiService implements RoomApiService {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://58fd-93-149-132-87.ngrok-free.app';
+    baseUrl ??= 'https://8ea7-93-149-132-87.ngrok-free.app';
   }
 
   final Dio _dio;
@@ -24,19 +24,15 @@ class _RoomApiService implements RoomApiService {
   Future<HttpResponse<Room>> createRoom(
     String accessToken,
     String name,
-    String roomOwnerUsername,
   ) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{
-      r'name': name,
-      r'roomOwnerUsername': roomOwnerUsername,
-    };
+    final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{
       r'Content-Type': 'application/json',
       r'Authorization': accessToken,
     };
     _headers.removeWhere((k, v) => v == null);
-    final Map<String, dynamic>? _data = null;
+    final _data = {'name': name};
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<HttpResponse<Room>>(Options(
       method: 'POST',
@@ -61,14 +57,52 @@ class _RoomApiService implements RoomApiService {
   }
 
   @override
+  Future<HttpResponse<RoomSmartObject>> createSmartObject(
+    String accessToken,
+    String roomName,
+    String usernamename,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{
+      r'Content-Type': 'application/json',
+      r'Authorization': accessToken,
+    };
+    _headers.removeWhere((k, v) => v == null);
+    final _data = {
+      'roomName': roomName,
+      'roomOwnerUsername': usernamename,
+    };
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<HttpResponse<RoomSmartObject>>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+      contentType: 'application/json',
+    )
+            .compose(
+              _dio.options,
+              '/rooms/{roomName}/smartobjects',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = RoomSmartObject.fromJson(_result.data!);
+    final httpResponse = HttpResponse(value, _result);
+    return httpResponse;
+  }
+
+  @override
   Future<HttpResponse<List<Room>>> getRoomsByOwnerUsername(
     String accessToken,
     String roomOwnerUsername,
   ) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{
-      r'roomOwnerUsername': roomOwnerUsername
-    };
+    final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{
       r'Content-Type': 'application/json',
       r'Authorization': accessToken,

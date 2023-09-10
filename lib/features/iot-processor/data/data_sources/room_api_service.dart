@@ -2,6 +2,7 @@ import 'package:retrofit/retrofit.dart';
 import 'package:sensorwave/core/resources/constants/constants.dart';
 import 'package:dio/dio.dart' hide Headers;
 import 'package:sensorwave/features/iot-processor/domain/models/room/room.dart';
+import 'package:sensorwave/features/iot-processor/domain/models/room_smart_object/room_smart_object.dart';
 
 part 'room_api_service.g.dart';
 
@@ -15,8 +16,17 @@ abstract class RoomApiService{
   @POST("/rooms/createRoom")
   Future<HttpResponse<Room>> createRoom(
     @Header("Authorization") String accessToken,
-    @Query("name") String name,
-    @Query("roomOwnerUsername") String roomOwnerUsername,
+    @Field("name") String name,
+  );
+
+  @Headers(<String, dynamic> {
+    "Content-Type": contentTypeJson,
+  })
+  @POST("/rooms/{roomName}/smartobjects")
+  Future<HttpResponse<RoomSmartObject>> createSmartObject(
+    @Header("Authorization") String accessToken,
+    @Field("roomName") String roomName,
+    @Field("roomOwnerUsername") String usernamename,
   );
 
   @Headers(<String, dynamic> {
@@ -25,7 +35,7 @@ abstract class RoomApiService{
   @GET("/rooms/{roomOwnerUsername}")
   Future<HttpResponse<List<Room>>> getRoomsByOwnerUsername(
     @Header("Authorization") String accessToken,
-    @Path("roomOwnerUsername") @Query("roomOwnerUsername") String roomOwnerUsername,
+    @Path("roomOwnerUsername") String roomOwnerUsername,
   );
 
   

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:sensorwave/features/iot-processor/domain/models/room/room.dart';
+import 'package:sensorwave/features/iot-processor/domain/models/room_smart_object/room_smart_object.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RoomLocalService{
@@ -17,6 +18,23 @@ class RoomLocalService{
       return [];
     }
     return List<Room>.from(json.decode(roomsJson).map((x) => Room.fromJson(x)));
+  }
+
+  Future<RoomSmartObject> createSmartObject(String name, String roomOwnerUsername) async {
+    String ? roomsJson = sharedPreferences.getString(roomOwnerUsername);
+    List<Room> rooms = [];
+    if(roomsJson != null){
+      rooms = List<Room>.from(json.decode(roomsJson).map((x) => Room.fromJson(x)));
+    }
+    RoomSmartObject roomSmartObject = RoomSmartObject(
+      id: DateTime.now().millisecondsSinceEpoch.toString(),
+      name: name,
+      roomOwnerUsername: roomOwnerUsername,
+      createdAt: DateTime.now(),
+    );
+    rooms[0].smartObjects.add(roomSmartObject);
+    await sharedPreferences.setString(roomOwnerUsername, json.encode(rooms));
+    return roomSmartObject;
   }
 
   Future<Room> createRoom(String name, String roomOwnerUsername) async {
