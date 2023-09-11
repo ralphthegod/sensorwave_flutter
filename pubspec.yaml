@@ -20,6 +20,7 @@ dependencies:
   shared_preferences: ^2.2.1
   mqtt_client: ^10.0.0
   protobuf: ^3.1.0
+  logger: ^2.0.2
 
 dev_dependencies:
   flutter_test:
@@ -46,7 +47,7 @@ dev_dependencies:
   # Utils
   flutter_hooks: ^0.20.1
   cached_network_image: ^3.2.3
-  logger: ^2.0.2
+  
   
 
 
