@@ -37,9 +37,9 @@ class RoomRepositoryImpl extends RoomRepository{
   }
 
   @override
-  Future<DataState<RoomSmartObject>> createSmartObject(String accessToken, String name, String roomOwnerUsername) async {
+  Future<DataState<RoomSmartObject>> createSmartObject(String accessToken, String name, String roomOwnerUsername, String roomName) async {
     try{
-      final httpResponse = await _roomApiService.createSmartObject(accessToken, name, roomOwnerUsername);
+      final httpResponse = await _roomApiService.createSmartObject(accessToken, name, roomOwnerUsername, roomName);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {

@@ -18,8 +18,8 @@ class RoomRepositoryMock extends RoomRepository{
   }
 
   @override
-  Future<DataState<RoomSmartObject>> createSmartObject(String accessToken, String name, String roomOwnerUsername) async {
-    RoomSmartObject roomSmartObject = await _roomLocalService.createSmartObject(name, roomOwnerUsername);
+  Future<DataState<RoomSmartObject>> createSmartObject(String accessToken, String name, String roomOwnerUsername, String roomName) async {
+    RoomSmartObject roomSmartObject = await _roomLocalService.createSmartObject(name, roomOwnerUsername, roomName);
     return DataSuccess(roomSmartObject);
   }
 

@@ -20,19 +20,20 @@ class RoomLocalService{
     return List<Room>.from(json.decode(roomsJson).map((x) => Room.fromJson(x)));
   }
 
-  Future<RoomSmartObject> createSmartObject(String name, String roomOwnerUsername) async {
+  Future<RoomSmartObject> createSmartObject(String name, String roomOwnerUsername, String roomName) async {
     String ? roomsJson = sharedPreferences.getString(roomOwnerUsername);
     List<Room> rooms = [];
     if(roomsJson != null){
       rooms = List<Room>.from(json.decode(roomsJson).map((x) => Room.fromJson(x)));
     }
+    Room room = rooms.firstWhere((element) => element.name == roomName);
     RoomSmartObject roomSmartObject = RoomSmartObject(
       id: DateTime.now().millisecondsSinceEpoch.toString(),
       name: name,
       roomOwnerUsername: roomOwnerUsername,
       createdAt: DateTime.now(),
     );
-    rooms[0].smartObjects.add(roomSmartObject);
+    room.smartObjects.add(roomSmartObject);
     await sharedPreferences.setString(roomOwnerUsername, json.encode(rooms));
     return roomSmartObject;
   }
