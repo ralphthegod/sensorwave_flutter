@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:sensorwave/core/resources/constants/constants.dart';
 import 'package:sensorwave/core/resources/data_state.dart';
+import 'package:sensorwave/core/resources/user_data.dart';
 import 'package:sensorwave/features/iot-security/data/data_sources/register_api_service.dart';
 import 'package:sensorwave/features/iot-security/data/data_sources/token_api_service.dart';
 import 'package:sensorwave/features/iot-security/domain/models/client_access_token/client_access_token.dart';
@@ -28,6 +29,7 @@ class AuthRepositoryImpl extends AuthRepository {
       );
       
       if (httpResponse.response.statusCode == HttpStatus.ok) {
+        UserData.user = User(username: username, password: password);
         return DataSuccess(httpResponse.data);
       } else {
         return DataFailed(
@@ -48,7 +50,6 @@ class AuthRepositoryImpl extends AuthRepository {
   Future<DataState<User>> register(String username, String password) async {
     try {
       final httpResponse = await _authApiService.register(username, password);
-      
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
