@@ -13,7 +13,7 @@ class _RoomApiService implements RoomApiService {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://8ea7-93-149-132-87.ngrok-free.app';
+    baseUrl ??= 'https://fb7f-93-149-132-87.ngrok-free.app';
   }
 
   final Dio _dio;
@@ -42,7 +42,7 @@ class _RoomApiService implements RoomApiService {
     )
             .compose(
               _dio.options,
-              '/rooms/createRoom',
+              '/api/iot-processor/rooms/createRoom',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -60,7 +60,8 @@ class _RoomApiService implements RoomApiService {
   Future<HttpResponse<RoomSmartObject>> createSmartObject(
     String accessToken,
     String roomName,
-    String usernamename,
+    String name,
+    String username,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -70,8 +71,8 @@ class _RoomApiService implements RoomApiService {
     };
     _headers.removeWhere((k, v) => v == null);
     final _data = {
-      'roomName': roomName,
-      'roomOwnerUsername': usernamename,
+      'name': name,
+      'roomOwnerUsername': username,
     };
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<HttpResponse<RoomSmartObject>>(Options(
@@ -82,7 +83,7 @@ class _RoomApiService implements RoomApiService {
     )
             .compose(
               _dio.options,
-              '/rooms/{roomName}/smartobjects',
+              '/api/iot-processor/rooms/${roomName}/smartobjects',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -118,7 +119,7 @@ class _RoomApiService implements RoomApiService {
     )
             .compose(
               _dio.options,
-              '/rooms/${roomOwnerUsername}',
+              '/api/iot-processor/rooms/${roomOwnerUsername}',
               queryParameters: queryParameters,
               data: _data,
             )

@@ -13,7 +13,7 @@ abstract class RoomApiService{
   @Headers(<String, dynamic> {
     "Content-Type": contentTypeJson,
   })
-  @POST("/rooms/createRoom")
+  @POST("/api/iot-processor/rooms/createRoom")
   Future<HttpResponse<Room>> createRoom(
     @Header("Authorization") String accessToken,
     @Field("name") String name,
@@ -22,17 +22,18 @@ abstract class RoomApiService{
   @Headers(<String, dynamic> {
     "Content-Type": contentTypeJson,
   })
-  @POST("/rooms/{roomName}/smartobjects")
+  @POST("/api/iot-processor/rooms/{roomName}/smartobjects")
   Future<HttpResponse<RoomSmartObject>> createSmartObject(
     @Header("Authorization") String accessToken,
-    @Field("roomName") String roomName,
-    @Field("roomOwnerUsername") String usernamename,
+    @Path("roomName") String roomName,
+    @Field("name") String name,
+    @Field("roomOwnerUsername") String username,
   );
 
   @Headers(<String, dynamic> {
     "Content-Type": contentTypeJson,
   })
-  @GET("/rooms/{roomOwnerUsername}")
+  @GET("/api/iot-processor/rooms/{roomOwnerUsername}")
   Future<HttpResponse<List<Room>>> getRoomsByOwnerUsername(
     @Header("Authorization") String accessToken,
     @Path("roomOwnerUsername") String roomOwnerUsername,
