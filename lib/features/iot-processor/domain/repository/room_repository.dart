@@ -7,7 +7,7 @@ abstract class RoomRepository{
 
   Future<DataState<List<Room>>> getRoomsByOwnerUsername(String accessToken, String username);
 
-  Future<DataState<RoomSmartObject>> createSmartObject(String accessToken, String name, String roomOwnerUsername);
+  Future<DataState<RoomSmartObject>> createSmartObject(String accessToken, String name, String roomOwnerUsername, String roomName);
   
   Future<DataState<Room>> createRoom(String accessToken, String name, String roomOwnerUsername);
 
