@@ -12,7 +12,7 @@ class CreateRoomUseCase extends UseCase<DataState<Room>, Map<String,String>>{
 
   @override
   Future<DataState<Room>> call({required Map<String, String> params}) async {
-    Future<DataState<Room>> response = _roomRepository.createRoom(UserData.clientAccessToken.access_token, params["name"]!, UserData.user.username);
+    Future<DataState<Room>> response = _roomRepository.createRoom(UserData.tokenForApi, params["name"]!, UserData.user.username);
     return response;
   }
 }

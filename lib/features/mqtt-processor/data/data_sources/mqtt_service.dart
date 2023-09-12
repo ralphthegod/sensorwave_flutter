@@ -13,6 +13,7 @@ class MqttService{
   final MqttMessageProcessor _mqttMessageProcessor = MqttMessageProcessor();
   
   Future<MqttConnectionState?> connect(String clientIdentifier, String topic, Function(SmartObjectMessage) streamCallback) async{
+
     client = MqttServerClient.withPort(
       mqttServerAddress,
       clientIdentifier,
@@ -25,7 +26,10 @@ class MqttService{
     client.onDisconnected = onDisconnected;
     this.streamCallback = streamCallback;
 
-    MqttClientConnectionStatus? mqttConnectionStatus =
+    final MqttClientConnectionStatus? mqttConnectionStatus;
+
+    try {
+      mqttConnectionStatus =
         await client.connect(UserData.user.username, UserData.user.password).catchError(
       (error) {
         return null;
@@ -35,7 +39,11 @@ class MqttService{
      if (mqttConnectionStatus?.state == MqttConnectionState.connected) {
        client.subscribe(topic, MqttQos.atLeastOnce);
      }
-    
+    }
+    catch(e){
+      print(e.toString());
+      return MqttConnectionState.faulted;
+    }
 
     return mqttConnectionStatus?.state;
   }
@@ -46,6 +54,7 @@ class MqttService{
 
   void onConnected() {
     logger.d("MQTT Connected");
+    print("MQTT Connected");
     client.updates?.listen(
       (List<MqttReceivedMessage<MqttMessage>> messages) {
 

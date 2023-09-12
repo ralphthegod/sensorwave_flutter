@@ -12,7 +12,7 @@ class CreateSmartObjectUseCase extends UseCase<DataState<RoomSmartObject>, Map<S
 
   @override
   Future<DataState<RoomSmartObject>> call({required Map<String, String> params}) async{
-    Future<DataState<RoomSmartObject>> response = _roomRepository.createSmartObject(UserData.clientAccessToken.access_token, params["name"]!, UserData.user.username, params["roomName"]! );
+    Future<DataState<RoomSmartObject>> response = _roomRepository.createSmartObject(UserData.tokenForApi, params["name"]!, UserData.user.username, params["roomName"]! );
     return response;
   }
 

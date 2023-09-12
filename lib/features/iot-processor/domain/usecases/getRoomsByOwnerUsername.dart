@@ -14,7 +14,7 @@ class GetRoomsByOwnerUsernameUseCase extends UseCase<DataState<List<Room>>, Map<
 
   @override
   Future<DataState<List<Room>>> call({required Map<String, String> params}) async {
-    Future<DataState<List<Room>>> response = _roomRepository.getRoomsByOwnerUsername(UserData.clientAccessToken.access_token, UserData.user.username);
+    Future<DataState<List<Room>>> response = _roomRepository.getRoomsByOwnerUsername(UserData.tokenForApi, UserData.user.username);
     return response;
   }
 }
