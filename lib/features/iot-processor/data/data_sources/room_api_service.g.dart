@@ -12,9 +12,7 @@ class _RoomApiService implements RoomApiService {
   _RoomApiService(
     this._dio, {
     this.baseUrl,
-  }) {
-    baseUrl ??= 'https://fb7f-93-149-132-87.ngrok-free.app';
-  }
+  });
 
   final Dio _dio;
 
@@ -42,7 +40,7 @@ class _RoomApiService implements RoomApiService {
     )
             .compose(
               _dio.options,
-              '/api/iot-processor/rooms/createRoom',
+              '/api/iot-processor/rooms',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -59,9 +57,9 @@ class _RoomApiService implements RoomApiService {
   @override
   Future<HttpResponse<RoomSmartObject>> createSmartObject(
     String accessToken,
-    String roomName,
     String name,
     String username,
+    String roomName,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

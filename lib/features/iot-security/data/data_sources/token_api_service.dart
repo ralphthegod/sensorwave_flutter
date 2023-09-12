@@ -5,7 +5,7 @@ import 'package:dio/dio.dart' hide Headers;
 
 part 'token_api_service.g.dart';
 
-@RestApi(baseUrl: keycloakApiBaseUrl)
+@RestApi()
 abstract class TokenApiService {
   factory TokenApiService(Dio dio, {String baseUrl}) = _TokenApiService;
 

@@ -12,10 +12,7 @@ class _TokenApiService implements TokenApiService {
   _TokenApiService(
     this._dio, {
     this.baseUrl,
-  }) {
-    baseUrl ??=
-        'https://58fd-93-149-132-87.ngrok-free.app/realms/app/protocol/openid-connect';
-  }
+  });
 
   final Dio _dio;
 

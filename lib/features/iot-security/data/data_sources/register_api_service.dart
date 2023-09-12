@@ -5,7 +5,7 @@ import 'package:dio/dio.dart' hide Headers;
 
 part 'register_api_service.g.dart';
 
-@RestApi(baseUrl: apiBaseUrl)
+@RestApi()
 abstract class AuthApiService {
   factory AuthApiService(Dio dio, {String baseUrl}) = _AuthApiService;
 

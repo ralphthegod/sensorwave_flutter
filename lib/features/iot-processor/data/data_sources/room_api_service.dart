@@ -6,14 +6,14 @@ import 'package:sensorwave/features/iot-processor/domain/models/room_smart_objec
 
 part 'room_api_service.g.dart';
 
-@RestApi(baseUrl: apiBaseUrl)
+@RestApi()
 abstract class RoomApiService{
   factory RoomApiService(Dio dio, {String baseUrl}) = _RoomApiService;
 
   @Headers(<String, dynamic> {
     "Content-Type": contentTypeJson,
   })
-  @POST("/api/iot-processor/rooms/createRoom")
+  @POST("/api/iot-processor/rooms")
   Future<HttpResponse<Room>> createRoom(
     @Header("Authorization") String accessToken,
     @Field("name") String name,
@@ -25,9 +25,9 @@ abstract class RoomApiService{
   @POST("/api/iot-processor/rooms/{roomName}/smartobjects")
   Future<HttpResponse<RoomSmartObject>> createSmartObject(
     @Header("Authorization") String accessToken,
-    @Path("roomName") String roomName,
     @Field("name") String name,
     @Field("roomOwnerUsername") String username,
+    @Path("roomName") String roomName,
   );
 
   @Headers(<String, dynamic> {

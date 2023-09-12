@@ -12,9 +12,7 @@ class _AuthApiService implements AuthApiService {
   _AuthApiService(
     this._dio, {
     this.baseUrl,
-  }) {
-    baseUrl ??= 'https://58fd-93-149-132-87.ngrok-free.app';
-  }
+  });
 
   final Dio _dio;
 
