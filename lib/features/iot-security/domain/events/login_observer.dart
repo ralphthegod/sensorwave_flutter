@@ -13,7 +13,9 @@ import 'package:sensorwave/features/iot-security/domain/models/client_access_tok
 class LoginObserver extends UseCaseObserver {
   @override
   void onUseCaseSuccess(dynamic useCaseOutput) {
+
     ClientAccessToken clientAccessToken = useCaseOutput;
     UserData.clientAccessToken = clientAccessToken;
+    UserData.tokenForApi = "Bearer ${UserData.clientAccessToken.access_token}";
   }
 }
