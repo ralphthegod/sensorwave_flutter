@@ -19,6 +19,8 @@ class AuthRepositoryImpl extends AuthRepository {
 
   @override
   Future<DataState<ClientAccessToken>> login(String username, String password) async {
+    if(username == "") return DataFailed(DioException(error: "Username cannot be empty", message: "Username cannot be empty", requestOptions: RequestOptions()));
+    if(password == "") return DataFailed(DioException(error: "Password cannot be empty", message: "Password cannot be empty", requestOptions: RequestOptions()));
     try {
       final httpResponse = await _tokenApiService.getAccessToken(
         username,
@@ -48,6 +50,8 @@ class AuthRepositoryImpl extends AuthRepository {
 
   @override
   Future<DataState<User>> register(String username, String password) async {
+    if(username == "") return DataFailed(DioException(error: "Username cannot be empty", message: "Username cannot be empty", requestOptions: RequestOptions()));
+    if(password == "") return DataFailed(DioException(error: "Password cannot be empty", message: "Password cannot be empty", requestOptions: RequestOptions()));
     try {
       final httpResponse = await _authApiService.register(username, password);
       if (httpResponse.response.statusCode == HttpStatus.ok) {

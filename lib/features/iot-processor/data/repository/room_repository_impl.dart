@@ -15,6 +15,8 @@ class RoomRepositoryImpl extends RoomRepository{
 
   @override
   Future<DataState<Room>> createRoom(String accessToken, String name, String roomOwnerUsername) async {
+    if(name == "") return DataFailed(DioException(error: "Room name cannot be empty", message: "Room name cannot be empty", requestOptions: RequestOptions()));
+    if(roomOwnerUsername == "") return DataFailed(DioException(error: "Not logged", message: "Not logged", requestOptions: RequestOptions()));
     try{
       final httpResponse = await _roomApiService.createRoom(accessToken, name);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
@@ -38,6 +40,8 @@ class RoomRepositoryImpl extends RoomRepository{
 
   @override
   Future<DataState<RoomSmartObject>> createSmartObject(String accessToken, String name, String roomOwnerUsername, String roomName) async {
+    if(roomName == "") return DataFailed(DioException(error: "Room name cannot be empty", message: "Room name cannot be empty", requestOptions: RequestOptions()));
+    if(name == "") return DataFailed(DioException(error: "Smart object name cannot be empty", message: "Smart object name cannot be empty",  requestOptions: RequestOptions()));
     try{
       final httpResponse = await _roomApiService.createSmartObject(accessToken, name, roomOwnerUsername, roomName);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
