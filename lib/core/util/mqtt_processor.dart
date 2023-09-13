@@ -1,4 +1,4 @@
-import 'dart:typed_data';
+import 'package:mqtt_client/mqtt_client.dart';
 
 import 'package:sensorwave/core/resources/constants/constants.dart';
 import 'package:sensorwave/core/resources/proto/output/iot-processor.pb.dart';
@@ -6,9 +6,16 @@ import 'package:sensorwave/core/resources/proto/output/iot-processor.pb.dart';
 class MqttMessageProcessor {
 
 
-  SmartObjectMessage processBuffer(ByteBuffer smartObjectMessagePayload) {
-    final SmartObjectMessage smartObjectMessage = SmartObjectMessage.fromBuffer(smartObjectMessagePayload.asInt16List());
-    return smartObjectMessage;
+  SmartObjectMessage processBuffer(MqttPublishPayload smartObjectMessagePayload) {
+    try{
+      logger.w(smartObjectMessagePayload.message);
+      final SmartObjectMessage smartObjectMessage = SmartObjectMessage.fromBuffer(smartObjectMessagePayload.message.buffer.asInt8List());
+      return smartObjectMessage;
+    }
+    catch(e){
+      logger.e("Protobuf Error: ${e.toString()}");
+      return SmartObjectMessage();
+    }
   }
 
   Object? processData(SmartObjectMessage smartObjectMessage){
