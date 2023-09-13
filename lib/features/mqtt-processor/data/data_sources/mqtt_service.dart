@@ -1,77 +1,69 @@
-import 'package:flutter/widgets.dart';
+import 'dart:io';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 import 'package:sensorwave/core/resources/constants/constants.dart';
-import 'package:sensorwave/core/resources/proto/output/iot-processor.pb.dart';
 import 'package:sensorwave/core/resources/user_data.dart';
-import 'package:sensorwave/core/util/mqtt_processor.dart';
 
 class MqttService{
   
   late MqttClient client;
-  late Function(SmartObjectMessage) streamCallback;
-  final MqttMessageProcessor _mqttMessageProcessor = MqttMessageProcessor();
+  late Function(Stream<List<MqttReceivedMessage<MqttMessage>>>?) onStreamReadyCallback;
   
-  Future<MqttConnectionState?> connect(String clientIdentifier, String topic, Function(SmartObjectMessage) streamCallback) async{
+  void connect(String clientIdentifier, String topic, Function(Stream<List<MqttReceivedMessage<MqttMessage>>>?) onStreamReadyCallback) async{
 
-    client = MqttServerClient.withPort(
-      mqttServerAddress,
-      clientIdentifier,
-      mqttServerPort,
-    );
+    client = MqttServerClient(mqttServerAddress, clientIdentifier);
 
     client.autoReconnect = true;
-
-    client.onConnected = onConnected;
+    client.logging(on: true);
+    client.keepAlivePeriod = 60;
     client.onDisconnected = onDisconnected;
-    this.streamCallback = streamCallback;
+    client.onConnected = onConnected;
+    client.onSubscribed = onSubscribed;
+    client.onSubscribeFail = onSubscribeFailed;
+    client.port = mqttServerPort;
+    final connMess = MqttConnectMessage()
+        .withClientIdentifier(clientIdentifier)
+        .withWillQos(MqttQos.atLeastOnce)
+        .startClean();
+    client.connectionMessage = connMess;
 
-    final MqttClientConnectionStatus? mqttConnectionStatus;
-
-    try {
-      mqttConnectionStatus =
-        await client.connect(UserData.user.username, UserData.user.password).catchError(
-      (error) {
-        return null;
-      },
-    );
-
-     if (mqttConnectionStatus?.state == MqttConnectionState.connected) {
-       client.subscribe(topic, MqttQos.atLeastOnce);
-     }
-    }
-    catch(e){
-      print(e.toString());
-      return MqttConnectionState.faulted;
+    try{
+      await client.connect(UserData.user.username, UserData.user.password);
+    } on SocketException catch (e) {
+      logger.e('MQTT Socket exception: $e');
+      client.disconnect();
     }
 
-    return mqttConnectionStatus?.state;
+    if (client.connectionStatus!.state == MqttConnectionState.connected) {
+      client.subscribe(topic, MqttQos.atLeastOnce);
+    } else {
+      logger.e('MQTT Connection failed - disconnecting, status is ${client.connectionStatus}');
+      client.disconnect();
+    }
+    
   }
 
   void disconnect(){
     client.disconnect();
   }
 
+  void onSubscribeFailed(String topic){
+    logger.e("MQTT Subscribed Failed on topic: $topic");
+  }
+
+  void onSubscribed(String topic){
+    logger.d("MQTT Subscribed");
+    if(client.updates == null){
+          logger.e("MQTT Updates is null");
+    }
+    else {
+      onStreamReadyCallback(client.updates);
+    }
+    
+  }
+
   void onConnected() {
     logger.d("MQTT Connected");
-    print("MQTT Connected");
-    client.updates?.listen(
-      (List<MqttReceivedMessage<MqttMessage>> messages) {
-
-        for (MqttReceivedMessage mqttReceivedMessage in messages) {
-
-          final topic = mqttReceivedMessage.topic;
-
-          final payload = mqttReceivedMessage.payload as MqttPublishMessage;
-          final message = _mqttMessageProcessor.processBuffer(payload.payload.message.buffer);
-  
-          logger.d('received topic: "$topic", message<dynamic>: "$message"');
-          _mqttMessageProcessor.logData(message);
-
-          streamCallback(message);
-        }
-      },
-    );
   }
 
   void onDisconnected(){
