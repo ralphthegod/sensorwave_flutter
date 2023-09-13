@@ -1,12 +1,10 @@
-import 'package:sensorwave/core/resources/proto/output/iot-processor.pb.dart';
+import 'package:mqtt_client/mqtt_client.dart';
 
 abstract class MqttReactiveRepository {
 
-  Future<void> connect(String clientIdentifier, String topic);
+  void connect(String clientIdentifier, String topic);
   void disconnect();
 
-  void onNewMessage(SmartObjectMessage message);
-
-  Stream<SmartObjectMessage> get stream;
+  void onMQTTStreamReady(Stream<List<MqttReceivedMessage<MqttMessage>>>? stream);
 
 }
