@@ -25,9 +25,8 @@ class MqttReactiveRepositoryImpl extends MqttReactiveRepository{
   }
 
   @override
-  void connect(String clientIdentifier, String topic){
-
-    _mqttService.connect(UserData.user.username, topic, onMQTTStreamReady);
+  void connect(String clientIdentifier, String roomId, String smartObjectId) {
+    _mqttService.connect(UserData.user.username, makeTopic(roomId, smartObjectId), onMQTTStreamReady);
   }
 
   @override
@@ -45,6 +44,10 @@ class MqttReactiveRepositoryImpl extends MqttReactiveRepository{
           },
       );
     }
+  }
+
+  String makeTopic(String roomId, String smartObjectId) {
+    return "room/$roomId/smartobject/$smartObjectId/message";
   }
 
 

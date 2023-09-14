@@ -2,6 +2,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sensorwave/core/resources/constants/constants.dart';
 import 'package:sensorwave/core/resources/data_state.dart';
 import 'package:sensorwave/core/resources/user_data.dart';
@@ -18,7 +19,7 @@ class AuthRepositoryImpl extends AuthRepository {
   AuthRepositoryImpl(this._authApiService, this._tokenApiService);
 
   @override
-  Future<DataState<ClientAccessToken>> login(String username, String password) async {
+  Future<DataState<ClientAccessToken>> login(String username, String password) async{
     if(username == "") return DataFailed(DioException(error: "Username cannot be empty", message: "Username cannot be empty", requestOptions: RequestOptions()));
     if(password == "") return DataFailed(DioException(error: "Password cannot be empty", message: "Password cannot be empty", requestOptions: RequestOptions()));
     try {
@@ -49,9 +50,10 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<DataState<User>> register(String username, String password) async {
+  Future<DataState<User>> register(String username, String password, String confirmPassword) async {
     if(username == "") return DataFailed(DioException(error: "Username cannot be empty", message: "Username cannot be empty", requestOptions: RequestOptions()));
     if(password == "") return DataFailed(DioException(error: "Password cannot be empty", message: "Password cannot be empty", requestOptions: RequestOptions()));
+    if(password != confirmPassword) return DataFailed(DioException(error: "Passwords do not match", message: "Passwords do not match", requestOptions: RequestOptions()));
     try {
       final httpResponse = await _authApiService.register(username, password);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
