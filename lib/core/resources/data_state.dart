@@ -5,6 +5,7 @@ abstract class DataState<T> {
   final DioException ? error;
 
   const DataState({this.data, this.error});
+
 }
 
 class DataSuccess<T> extends DataState<T> {
@@ -14,3 +15,12 @@ class DataSuccess<T> extends DataState<T> {
 class DataFailed<T> extends DataState<T> {
   const DataFailed(DioException error) : super(error: error);
 }
+
+class DataEmpty<T> extends DataState<T> {
+  const DataEmpty() : super();
+}
+
+class DataLoading<T> extends DataState<T> {
+  const DataLoading() : super();
+}
+
