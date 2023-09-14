@@ -137,7 +137,7 @@ class _$_RoomSmartObject
   const _$_RoomSmartObject(
       {required this.id,
       required this.name,
-      required this.roomOwnerUsername,
+      this.roomOwnerUsername = "",
       required this.createdAt});
 
   factory _$_RoomSmartObject.fromJson(Map<String, dynamic> json) =>
@@ -148,6 +148,7 @@ class _$_RoomSmartObject
   @override
   final String name;
   @override
+  @JsonKey()
   final String roomOwnerUsername;
   @override
   final DateTime createdAt;
@@ -204,7 +205,7 @@ abstract class _RoomSmartObject implements RoomSmartObject {
   const factory _RoomSmartObject(
       {required final String id,
       required final String name,
-      required final String roomOwnerUsername,
+      final String roomOwnerUsername,
       required final DateTime createdAt}) = _$_RoomSmartObject;
 
   factory _RoomSmartObject.fromJson(Map<String, dynamic> json) =

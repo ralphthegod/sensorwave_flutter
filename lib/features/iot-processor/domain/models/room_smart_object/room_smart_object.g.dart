@@ -10,7 +10,7 @@ _$_RoomSmartObject _$$_RoomSmartObjectFromJson(Map<String, dynamic> json) =>
     _$_RoomSmartObject(
       id: json['id'] as String,
       name: json['name'] as String,
-      roomOwnerUsername: json['roomOwnerUsername'] as String,
+      roomOwnerUsername: json['roomOwnerUsername'] as String? ?? "",
       createdAt: DateTime.parse(json['createdAt'] as String),
     );
 

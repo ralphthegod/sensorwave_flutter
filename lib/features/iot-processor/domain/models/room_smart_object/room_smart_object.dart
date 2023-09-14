@@ -11,7 +11,7 @@ class RoomSmartObject with _$RoomSmartObject {
   const factory RoomSmartObject({
     required String id,
     required String name,
-    required String roomOwnerUsername,
+    @Default("") String roomOwnerUsername,
     required DateTime createdAt,
   }) = _RoomSmartObject;
 
