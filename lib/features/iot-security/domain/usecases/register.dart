@@ -13,7 +13,7 @@ class RegisterUseCase extends UseCase<DataState<User>, Map<String,String>>{
 
   @override
   Future<DataState<User>> call({required Map<String,String> params}) async {
-    DataState<User> response = await _authRepository.register(params["username"]!, params["password"]!);
+    DataState<User> response = await _authRepository.register(params["username"]!, params["password"]!, params["confirmPassword"]!);
     if(response is DataSuccess){
       notifyObservers(response.data);
     }
