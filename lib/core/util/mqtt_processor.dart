@@ -8,7 +8,6 @@ class MqttMessageProcessor {
 
   SmartObjectMessage processBuffer(MqttPublishPayload smartObjectMessagePayload) {
     try{
-      logger.w(smartObjectMessagePayload.message);
       final SmartObjectMessage smartObjectMessage = SmartObjectMessage.fromBuffer(smartObjectMessagePayload.message.buffer.asInt8List());
       return smartObjectMessage;
     }
@@ -18,11 +17,23 @@ class MqttMessageProcessor {
     }
   }
 
-  Object? processData(SmartObjectMessage smartObjectMessage){
-    // TODO: implement processData
+  Object? processData(Data data){
+    final anyData = data.data;
+    switch(data.type){
+      case DataType.HUMIDITY:
+        return anyData.unpackInto(Humidity());
+      case DataType.POSITION:
+        return anyData.unpackInto(Position());
+      case DataType.STATUS:
+        return anyData.unpackInto(Status());
+      case DataType.TEMPERATURE:
+        return anyData.unpackInto(Temperature());
+      default:
+        return null;
+    }
   }
 
-  void logData(SmartObjectMessage smartObjectMessage){
+  static void logData(SmartObjectMessage smartObjectMessage){
     for (var data in smartObjectMessage.data) {
       final anyData = data.data;
       switch(data.type){
@@ -59,6 +70,5 @@ class MqttMessageProcessor {
         return Object;
     }
   }
-    
 
 }
