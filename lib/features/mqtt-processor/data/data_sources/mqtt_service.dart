@@ -20,22 +20,32 @@ class MqttService{
     client.onConnected = onConnected;
     client.onSubscribed = onSubscribed;
     client.onSubscribeFail = onSubscribeFailed;
+    this.onStreamReadyCallback = onStreamReadyCallback;
     client.port = mqttServerPort;
     final connMess = MqttConnectMessage()
         .withClientIdentifier(clientIdentifier)
         .withWillQos(MqttQos.atLeastOnce)
         .startClean();
     client.connectionMessage = connMess;
-
+ 
     try{
       await client.connect(UserData.user.username, UserData.user.password);
-    } on SocketException catch (e) {
+    }
+      on SocketException catch (e) {
       logger.e('MQTT Socket exception: $e');
+      }
+      on Exception catch (e) {
+      logger.e('MQTT Exception: $e');
       client.disconnect();
     }
 
     if (client.connectionStatus!.state == MqttConnectionState.connected) {
-      client.subscribe(topic, MqttQos.atLeastOnce);
+      try{
+        client.subscribe(topic, MqttQos.atLeastOnce);
+      }
+      catch(e){
+        logger.e("MQTT Subscribe Error: $e");
+      }
     } else {
       logger.e('MQTT Connection failed - disconnecting, status is ${client.connectionStatus}');
       client.disconnect();
