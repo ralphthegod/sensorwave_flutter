@@ -16,16 +16,18 @@ class MqttReactiveRepositoryImpl extends MqttReactiveRepository{
 
   final MqttMessageProcessor _mqttMessageProcessor = MqttMessageProcessor();
 
-  final StreamController<SmartObjectMessage> _updateController = StreamController<SmartObjectMessage>();
+  final StreamController<SmartObjectMessage> _updateController = StreamController<SmartObjectMessage>.broadcast();
+  
+  @override
   Stream<SmartObjectMessage> get update => _updateController.stream;
   
   @override
   void disconnect() {
-    return _mqttService.disconnect();
+    _mqttService.disconnect();
   }
 
   @override
-  void connect(String clientIdentifier, String roomId, String smartObjectId) {
+  void connect(String roomId, String smartObjectId) {
     _mqttService.connect(UserData.user.username, makeTopic(roomId, smartObjectId), onMQTTStreamReady);
   }
 
@@ -37,11 +39,16 @@ class MqttReactiveRepositoryImpl extends MqttReactiveRepository{
     else{
       stream.listen(
         (List<MqttReceivedMessage<MqttMessage>> messages) {
-          logger.w("MQTT Message Received");
+          try{
+            logger.w("MQTT Message Received");
             final MqttPublishMessage recMess = messages[0].payload as MqttPublishMessage;
             final SmartObjectMessage message = _mqttMessageProcessor.processBuffer(recMess.payload);
             _updateController.add(message);
-          },
+          }
+          catch(e){
+            logger.e("MQTT Message Error: ${e.toString()}");
+          }
+        }
       );
     }
   }
