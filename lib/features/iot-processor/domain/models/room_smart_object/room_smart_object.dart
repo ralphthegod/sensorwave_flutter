@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart';
 part 'room_smart_object.freezed.dart';
 part 'room_smart_object.g.dart';
 
-@freezed
+@unfreezed
 class RoomSmartObject with _$RoomSmartObject {
   const factory RoomSmartObject({
     required String id,

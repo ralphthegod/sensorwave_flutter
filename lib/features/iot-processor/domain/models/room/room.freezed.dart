@@ -21,10 +21,16 @@ Room _$RoomFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Room {
   String get id => throw _privateConstructorUsedError;
+  set id(String value) => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  set name(String value) => throw _privateConstructorUsedError;
   String get roomOwnerUsername => throw _privateConstructorUsedError;
+  set roomOwnerUsername(String value) => throw _privateConstructorUsedError;
   List<RoomSmartObject> get smartObjects => throw _privateConstructorUsedError;
+  set smartObjects(List<RoomSmartObject> value) =>
+      throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
+  set createdAt(DateTime value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -131,7 +137,7 @@ class __$$_RoomCopyWithImpl<$Res> extends _$RoomCopyWithImpl<$Res, _$_Room>
           : roomOwnerUsername // ignore: cast_nullable_to_non_nullable
               as String,
       smartObjects: null == smartObjects
-          ? _value._smartObjects
+          ? _value.smartObjects
           : smartObjects // ignore: cast_nullable_to_non_nullable
               as List<RoomSmartObject>,
       createdAt: null == createdAt
@@ -145,32 +151,25 @@ class __$$_RoomCopyWithImpl<$Res> extends _$RoomCopyWithImpl<$Res, _$_Room>
 /// @nodoc
 @JsonSerializable()
 class _$_Room with DiagnosticableTreeMixin implements _Room {
-  const _$_Room(
+  _$_Room(
       {required this.id,
       required this.name,
       required this.roomOwnerUsername,
-      required final List<RoomSmartObject> smartObjects,
-      required this.createdAt})
-      : _smartObjects = smartObjects;
+      required this.smartObjects,
+      required this.createdAt});
 
   factory _$_Room.fromJson(Map<String, dynamic> json) => _$$_RoomFromJson(json);
 
   @override
-  final String id;
+  String id;
   @override
-  final String name;
+  String name;
   @override
-  final String roomOwnerUsername;
-  final List<RoomSmartObject> _smartObjects;
+  String roomOwnerUsername;
   @override
-  List<RoomSmartObject> get smartObjects {
-    if (_smartObjects is EqualUnmodifiableListView) return _smartObjects;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_smartObjects);
-  }
-
+  List<RoomSmartObject> smartObjects;
   @override
-  final DateTime createdAt;
+  DateTime createdAt;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -189,26 +188,6 @@ class _$_Room with DiagnosticableTreeMixin implements _Room {
       ..add(DiagnosticsProperty('createdAt', createdAt));
   }
 
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_Room &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.roomOwnerUsername, roomOwnerUsername) ||
-                other.roomOwnerUsername == roomOwnerUsername) &&
-            const DeepCollectionEquality()
-                .equals(other._smartObjects, _smartObjects) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, id, name, roomOwnerUsername,
-      const DeepCollectionEquality().hash(_smartObjects), createdAt);
-
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
@@ -224,25 +203,30 @@ class _$_Room with DiagnosticableTreeMixin implements _Room {
 }
 
 abstract class _Room implements Room {
-  const factory _Room(
-      {required final String id,
-      required final String name,
-      required final String roomOwnerUsername,
-      required final List<RoomSmartObject> smartObjects,
-      required final DateTime createdAt}) = _$_Room;
+  factory _Room(
+      {required String id,
+      required String name,
+      required String roomOwnerUsername,
+      required List<RoomSmartObject> smartObjects,
+      required DateTime createdAt}) = _$_Room;
 
   factory _Room.fromJson(Map<String, dynamic> json) = _$_Room.fromJson;
 
   @override
   String get id;
+  set id(String value);
   @override
   String get name;
+  set name(String value);
   @override
   String get roomOwnerUsername;
+  set roomOwnerUsername(String value);
   @override
   List<RoomSmartObject> get smartObjects;
+  set smartObjects(List<RoomSmartObject> value);
   @override
   DateTime get createdAt;
+  set createdAt(DateTime value);
   @override
   @JsonKey(ignore: true)
   _$$_RoomCopyWith<_$_Room> get copyWith => throw _privateConstructorUsedError;

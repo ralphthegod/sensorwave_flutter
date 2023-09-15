@@ -7,9 +7,9 @@ import 'package:sensorwave/features/iot-processor/domain/models/room_smart_objec
 part 'room.freezed.dart';
 part 'room.g.dart';
 
-@freezed
+@unfreezed
 class Room with _$Room {
-  const factory Room({
+  factory Room({
     required String id,
     required String name,
     required String roomOwnerUsername,
