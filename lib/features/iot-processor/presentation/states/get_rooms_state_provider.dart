@@ -6,7 +6,9 @@ import 'package:sensorwave/features/iot-processor/domain/providers/room_provider
 import 'package:sensorwave/features/iot-processor/domain/usecases/getRoomsByOwnerUsername.dart';
 
 class GetRoomsStateNotifier extends StateNotifier<DataState<List<Room>>> {
-  GetRoomsStateNotifier(this.usecase) : super(const DataEmpty<List<Room>>());
+  GetRoomsStateNotifier(this.usecase) : super(const DataEmpty<List<Room>>()){
+    fetch({});
+  }
   final GetRoomsByOwnerUsernameUseCase usecase;
 
   void fetch(Map<String,String> params) async {
