@@ -319,7 +319,7 @@ packages:
     source: hosted
     version: "2.0.3"
   flutter_map:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: flutter_map
       sha256: "5286f72f87deb132daa1489442d6cc46e986fc105cb727d9ae1b602b35b1d1f3"
@@ -457,7 +457,7 @@ packages:
     source: hosted
     version: "6.7.1"
   latlong2:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: latlong2
       sha256: "18712164760cee655bc790122b0fd8f3d5b3c36da2cb7bf94b68a197fbb0811b"
@@ -893,6 +893,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+  syncfusion_flutter_charts:
+    dependency: "direct main"
+    description:
+      name: syncfusion_flutter_charts
+      sha256: b1c706cea163059ecfe89132ca078f83d31e54cc99ecd1fabe4810e1b1dacc95
+      url: "https://pub.dev"
+    source: hosted
+    version: "23.1.36"
+  syncfusion_flutter_core:
+    dependency: transitive
+    description:
+      name: syncfusion_flutter_core
+      sha256: aea119c8117953fa5decf4a313b431e556b0959cd35ff88f8fbdc0eda9bedb06
+      url: "https://pub.dev"
+    source: hosted
+    version: "23.1.36"
+  syncfusion_flutter_maps:
+    dependency: "direct main"
+    description:
+      name: syncfusion_flutter_maps
+      sha256: c5a778837a1a717de5e764a7a4683348426d4f8a541844db680836affc4e9db3
+      url: "https://pub.dev"
+    source: hosted
+    version: "23.1.36"
   synchronized:
     dependency: transitive
     description:
