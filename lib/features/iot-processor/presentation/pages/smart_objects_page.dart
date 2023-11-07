@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sensorwave/core/resources/constants/constants.dart';
 import 'package:sensorwave/core/resources/data_state.dart';
@@ -52,6 +53,34 @@ class _SmartObjectsPageState extends State<SmartObjectsPage>{
                   'Smart Objects in ${widget.room.name}',
                   style: const TextStyle(fontSize: 32),  
                 ),
+
+            const SizedBox(height: 15,),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                    widget.room.id,
+                    style: const TextStyle(fontSize: 18,
+                    color: Colors.grey
+                    ),
+                    
+                  ),
+                  const SizedBox(width: 10,),
+                  GestureDetector(  
+                    onTap:() async {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Room ID copied to clipboard'),
+                        ),
+                      );
+                      await Clipboard.setData(ClipboardData(text: "${widget.room.id}"));
+                    },
+                    child: const Icon(Icons.copy, color: Colors.grey,),
+                  )
+              ],
+            ),
               
             const SizedBox(height: 30,),
 

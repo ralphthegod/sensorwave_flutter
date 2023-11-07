@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sensorwave/core/resources/proto/output/iot-processor.pb.dart';
 import 'package:sensorwave/features/iot-processor/domain/models/room/room.dart';
@@ -45,6 +46,34 @@ class _SmartObjectDashboardState extends State<SmartObjectDashboard>{
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(widget.smartObject.name, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+
+                  const SizedBox(height: 20),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                          widget.smartObject.id,
+                          style: const TextStyle(fontSize: 18,
+                          color: Colors.grey
+                          ),
+                          
+                        ),
+                        const SizedBox(width: 10,),
+                        GestureDetector(  
+                          onTap:() async {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('SmartObject ID copied to clipboard'),
+                              ),
+                            );
+                            await Clipboard.setData(ClipboardData(text: "${widget.smartObject.id}"));
+                          },
+                          child: const Icon(Icons.copy, color: Colors.grey,),
+                        )
+                    ],
+                  ),
                   
                   const SizedBox(height: 20),
 
